@@ -85,7 +85,7 @@ public class BasicItemController {
         return "basic/item";
     }
 
-    @PostMapping("/add")
+    //@PostMapping("/add")
     public String addItemV4(Item item){
         /**
          * @ModelAttribute 은 생략가능하다.
@@ -94,6 +94,17 @@ public class BasicItemController {
         itemRepository.save(item);
 
         return "basic/item";
+    }
+
+    @PostMapping("/add")
+    public String addItemV5(Item item){
+        itemRepository.save(item);
+        /**
+         * Redirect
+         * Post 방식으로 url 을 리턴해주고 새로고침을 하면 마지막에 서버에 전송한 데이터를 다시 전송한다.
+         * 이 때 redirect 를 이용해서 브라우저에게 재 요청을 하면 사용자에게는 Get 방식으로 요청한 View 를 준다.
+         */
+        return "redirect:/basic/items/"+item.getId();
     }
 
     @GetMapping("/{itemId}/edit")
